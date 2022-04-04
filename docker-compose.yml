@@ -5,3 +5,15 @@ services:
     build: .
     ports:
     - "8000:3000"
+    links:
+    - clubdatabases
+
+  clubdatabases:
+    image: mysql:8.0.28-oracle
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: clubdatabase
+    ports:
+      - "3306:3306"
