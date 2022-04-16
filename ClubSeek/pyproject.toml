@@ -9,6 +9,7 @@ license = "mit"
 python = "^3.9"
 Flask = "^2.1.1"
 mysql-connector-python = "^8.0.28"
+flask-expects-json = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
 
