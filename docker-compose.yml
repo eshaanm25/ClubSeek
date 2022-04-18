@@ -3,17 +3,40 @@ services:
   
   clubseek:
     build: .
+    depends_on:
+          clubdatabases:
+            condition: service_healthy
     ports:
     - "8000:3000"
+    secrets:
+      - db_user
+      - db_password
     links:
     - clubdatabases
 
   clubdatabases:
     image: mysql:8.0.28-oracle
     environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_USER_FILE: /run/secrets/db_user
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: clubdatabase
+    secrets:
+      - db_user
+      - db_password
+      - db_root_password
     ports:
       - "3306:3306"
+    healthcheck:
+      test: "mysql --user=$${FILE__MYSQL_USER} --password=$${FILE__MYSQL_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
+      interval: 1s
+      timeout: 40s
+      retries: 30
+
+secrets:
+  db_user:
+    file: ./secrets/db_user
+  db_password:
+    file: ./secrets/db_password
+  db_root_password:
+    file: ./secrets/db_root_password
