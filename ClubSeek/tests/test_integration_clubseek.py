@@ -39,6 +39,21 @@ def test_bar_adding():
     expected = [expected]
 
     assert json.loads(getBar.content) == expected
+
+def test_bar_deleting_bar():
+
+    request = {
+    "barName": "SuperAwais"
+    }
+
+    delBar = requests.delete("http://clubseek:3000/bars", json = request)
+
+    getBar = requests.get("http://clubseek:3000/bars")
+    
+    assert(getBar.status_code == 300)
+
+
+
     
 
 
