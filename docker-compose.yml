@@ -3,11 +3,11 @@ services:
   
   clubseek:
     build: .
-    depends_on:
-          clubdatabases:
-            condition: service_healthy
     ports:
     - "8000:3000"
+    depends_on:
+      clubdatabases:
+        condition: service_healthy
     secrets:
       - db_user
       - db_password
@@ -28,10 +28,11 @@ services:
     ports:
       - "3306:3306"
     healthcheck:
-      test: "mysql --user=$${FILE__MYSQL_USER} --password=$${FILE__MYSQL_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
-      interval: 1s
-      timeout: 40s
-      retries: 30
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      retries: 10
+    volumes:
+      - ./databaseInit:/docker-entrypoint-initdb.d
 
 secrets:
   db_user:

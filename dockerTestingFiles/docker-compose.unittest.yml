@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  
+  clubseek:
+    build: ../
+    command: "poetry run pytest tests/test_unit_clubseek.py"
+    secrets:
+      - db_user
+      - db_password
+
+secrets:
+  db_user:
+    file: ../secrets/db_user
+  db_password:
+    file: ../secrets/db_password

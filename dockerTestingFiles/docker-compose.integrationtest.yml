@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  
+  integrationtest:
+    build: .
+    command: "poetry run pytest tests/test_integration_clubseek.py -v"
+    depends_on:
+      clubseek:
+        condition: service_started
+    secrets:
+      - db_user
+      - db_password
+    links:
+    - clubseek
+
+secrets:
+  db_user:
+    file: ./secrets/db_user
+  db_password:
+    file: ./secrets/db_password

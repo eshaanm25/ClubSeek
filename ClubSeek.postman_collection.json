@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "ed4192ae-72a2-49aa-8baa-3ab9e7b639c9",
+		"name": "ClubSeek",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8000/bars",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"barName\": \"SuperEoin\",\n    \"wowFactor\": 54,\n    \"capacity\": 836,\n    \"currentTraffic\": 111,\n    \"address\": \"255 Sidhu Drive Eoin, NJ 08841\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/bars",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"barName\": \"SuperEoin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/bars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

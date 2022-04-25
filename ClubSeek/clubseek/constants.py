@@ -18,10 +18,3 @@ barDeleteSchema = {
     'required': ['barName']
 }
 
-class Bars:
-    def __init__(self,barName, wowFactor, capacity, currentTraffic, address):
-        self.barName = barName
-        self.wowFactor = wowFactor
-        self.capacity = capacity
-        self.currentTraffic = currentTraffic
-        self.address = address
