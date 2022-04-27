@@ -1,3 +1,5 @@
+from main import db 
+
 barSchema = {
     'type': 'object',
     'properties': {
@@ -14,7 +16,18 @@ barDeleteSchema = {
     'type': 'object',
     'properties': {
         'barName': {'type': 'string',  "minLength": 4, "maxLength": 30},
+        'address': {'type': 'string',  "minLength": 4, "maxLength": 30}
     },
     'required': ['barName']
 }
+
+# Bars Schema
+class Bars(db.Model):
+    __tablename__ = "Bars"
+
+    address = db.Column(db.String(255), primary_key = True)
+    barName = db.Column(db.String(30), primary_key = True)
+    capacity = db.Column(db.Integer)
+    currentTraffic = db.Column(db.Integer)
+    wowFactor = db.Column(db.Integer)
 

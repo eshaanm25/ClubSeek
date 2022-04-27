@@ -12,6 +12,7 @@ flask-expects-json = "^1.7.0"
 get-docker-secret = "^1.0.2"
 SQLAlchemy = "^1.4.35"
 PyMySQL = "^1.0.2"
+Flask-SQLAlchemy = "^2.5.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

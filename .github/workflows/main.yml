@@ -6,4 +6,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: 	docker compose -f docker-compose.yml -f ./dockerTestingFiles/docker-compose.integrationtest.yml up --build --exit-code-from integrationtest
+        run: 	docker compose -f docker-compose.yml -f ./dockerTestingFiles/docker-compose.integrationtest.yml up --build --quiet-pull --exit-code-from integrationtest

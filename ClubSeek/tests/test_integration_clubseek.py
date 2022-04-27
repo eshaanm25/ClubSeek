@@ -17,33 +17,32 @@ while True:
 def test_bar_adding():
     
     request = {
-    "barName": "SuperAwais",
-    "wowFactor": 54,
-    "capacity": 836,
-    "currentTraffic": 111,
-    "address": "255 Sidhu Drive Eoin, NJ 08841"
+        "barName": "SuperAwais",
+        "wowFactor": 54,
+        "capacity": 836,
+        "currentTraffic": 111,
+        "address": "255 Sidhu Drive Eoin, NJ 08841"
     }
 
     addBar = requests.put("http://clubseek:3000/bars", json = request)
 
     getBar = requests.get("http://clubseek:3000/bars")
     
-    expected = dict(
+    expected = [dict(
         address = "255 Sidhu Drive Eoin, NJ 08841",
         barName = "SuperAwais",
         capacity = 836,
         currentTraffic = 111,
         wowFactor = 54
-        )
-    
-    expected = [expected]
+        )]
 
     assert json.loads(getBar.content) == expected
 
 def test_bar_deleting_bar():
 
     request = {
-    "barName": "SuperAwais"
+        "barName": "SuperAwais",
+        "address": "255 Sidhu Drive Eoin, NJ 08841"
     }
 
     delBar = requests.delete("http://clubseek:3000/bars", json = request)

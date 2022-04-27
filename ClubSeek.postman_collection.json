@@ -8,11 +8,11 @@
 		{
 			"name": "localhost:8000/bars",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"barName\": \"SuperEoin\",\n    \"wowFactor\": 54,\n    \"capacity\": 836,\n    \"currentTraffic\": 111,\n    \"address\": \"255 Sidhu Drive Eoin, NJ 08841\"\n}",
+					"raw": "{\n    \"barName\": \"SuperAwais\",\n    \"wowFactor\": 54,\n    \"capacity\": 836,\n    \"currentTraffic\": 111,\n    \"address\": \"255 Sidhu Drive Eoin, NJ 08841\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,7 +39,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"barName\": \"SuperEoin\"\n}",
+					"raw": "{\n    \"barName\": \"SuperAwais\",\n    \"address\": \"255 Sidhu Drive Eoin, NJ 08841\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -72,6 +72,24 @@
 					"port": "8000",
 					"path": [
 						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/readiness",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"readiness"
 					]
 				}
 			},
