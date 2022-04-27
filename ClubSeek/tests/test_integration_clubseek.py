@@ -42,7 +42,7 @@ def test_bar_deleting_bar():
 
     request = {
         "barName": "SuperAwais",
-        "address": "255 Sidhu rive Eoin, NJ 08841"
+        "address": "255 Sidhu Drive Eoin, NJ 08841"
     }
 
     delBar = requests.delete("http://clubseek:3000/bars", json = request)
