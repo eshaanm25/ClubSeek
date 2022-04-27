@@ -1,1 +1,1 @@
-CREATE TABLE Bars (barName varchar(255), wowFactor int, capacity int, currentTraffic int, address varchar(255), PRIMARY KEY(barName));
+CREATE TABLE Bars (barName varchar(30), wowFactor int, capacity int, currentTraffic int, address varchar(255), PRIMARY KEY(barName));
