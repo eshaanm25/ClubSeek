@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_expects_json import expects_json
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from helpers import *
 
 apiEndpoints = Blueprint('apiEndpoints',__name__)
 
@@ -36,6 +37,12 @@ def add_bar():
     # Get Values from Request 
     values = request.get_json()
 
+    if values["currentTraffic"] > values["capacity"]:
+        returnString = "The bar <b>%s</b> has more traffic than capacity. Please wait until the bar has lower traffic" % (values["barName"])
+        response = make_response(returnString, 400)
+        response.mimetype = "text/html"
+        return(response)
+
     # Assemble Data to add to DB
     bar = Bars(
         address = values["address"],
@@ -58,7 +65,7 @@ def add_bar():
 
     except IntegrityError as e: 
         returnString = "The bar <b>%s</b> was already added to the list of Bars. <br><br> Error from Application: %s" % (values["barName"], e)
-        response = make_response(returnString, 300)
+        response = make_response(returnString, 400)
         response.mimetype = "text/html"
         return(response)
 
@@ -107,3 +114,35 @@ def del_bar():
         response = make_response(returnString, 300)
         response.mimetype = "text/html"
         return(response)
+
+# Bar Selection Algorithm
+@apiEndpoints.route('/barSelection', methods=['GET'])
+@expects_json(barAlgorithmSchema)
+def choose_bar():
+    # Get Values from Request   
+    values = request.get_json()
+    bestBar = None
+    response = []
+    if values["minWowFactor"] and values["maxTraffic"]:
+        # Query Databse for Minimum Requirements
+        bars = Bars.query.filter(Bars.wowFactor >= values["minWowFactor"]).filter(Bars.currentTraffic <= values["maxTraffic"]).all()
+        
+        # Process Preferences
+        if bars != []:
+            if values["preference"] == "wowFactor":
+                bestBar = getGreatest(bars, "wowFactor")
+            elif values["preference"] == "capacity":
+                bestBar = getGreatest(bars, "capacity")
+            else:
+                response.append("Preference was not defined so it will default to capacity.")
+                bestBar = getGreatest(bars, "capacity")
+
+    if bestBar == None: 
+        return(createResponse("No Bars Met Your Requirements. Please Edit Your Request Attributes and Try Again.", 300)) 
+    else:
+        response.append("<b>%s</b> is the chosen bar based on your preferences! It has a WOW Factor of <b>%s</b> and is <b>%s%%<b> full. <br> The address is <b>%s</b>. Have fun <b>%s</b>!" % (bestBar.barName, bestBar.wowFactor, 100*round(bestBar.currentTraffic/bestBar.capacity, 2), bestBar.address, values["name"])) 
+        returnString = ("<br>".join(response))
+        return(createResponse(returnString, 200))
+
+
+            

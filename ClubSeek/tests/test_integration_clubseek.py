@@ -51,8 +51,6 @@ def test_bar_deleting_bar():
     
     assert(getBar.status_code == 300)
 
-
-
     
 
 

@@ -18,7 +18,19 @@ barDeleteSchema = {
         'barName': {'type': 'string',  "minLength": 4, "maxLength": 30},
         'address': {'type': 'string',  "minLength": 4, "maxLength": 30}
     },
-    'required': ['barName']
+    'required': ['barName', 'address']
+}
+
+barAlgorithmSchema = {
+    'type': 'object',
+    'properties': {
+        'name': {'type': 'string',  "minLength": 4, "maxLength": 30},
+        'phoneNumber': {'type': 'integer'},
+        'minWowFactor': {'type': 'integer'},
+        'maxTraffic': {'type': 'integer'},
+        'preference': {'type': 'string'}
+    },
+    'required': ['name', 'phoneNumber']
 }
 
 # Bars Schema

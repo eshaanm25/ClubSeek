@@ -12,6 +12,3 @@ unittest:
 
 down:
 	docker compose -f docker-compose.yml -f ./dockerTestingFiles/docker-compose.integrationtest.yml down 
-
-test:
-	docker compose -f docker-compose.yml -f ./dockerTestingFiles/docker-compose.integrationtest.yml up --build --exit-code-from integrationtest
