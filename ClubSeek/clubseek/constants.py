@@ -1,8 +1,9 @@
 from main import db 
 
 barSchema = {
-    'type': 'object',
-    'properties': {
+    'type': 'array',
+    "minItems": 1,
+    'items': {
         'barName': {'type': 'string',  "minLength": 4, "maxLength": 30},
         'wowFactor': {'type': 'integer', "minimum": 1, "maximum": 100},
         'capacity': {'type': 'integer', "minimum": 1, "maximum": 1000},
@@ -42,4 +43,12 @@ class Bars(db.Model):
     capacity = db.Column(db.Integer)
     currentTraffic = db.Column(db.Integer)
     wowFactor = db.Column(db.Integer)
+
+class Users(db.Model):
+    __tablename__ = "Users"
+
+    userName = db.Column(db.String(255), primary_key = True)
+    userPhoneNumber = db.Column(db.String(15), primary_key = True)
+    assignedBarName = db.Column(db.String(30))
+    assignedBarAddress = db.Column(db.String(255))
 

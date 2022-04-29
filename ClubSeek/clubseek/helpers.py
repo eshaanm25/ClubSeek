@@ -1,5 +1,7 @@
 from flask import make_response
 
+
+# Iterates through an Array of Class Objects and finds the greatest value of wowFactor or capacity
 def getGreatest(bars, preference):
     index = 0
     greatestPreference = 0
@@ -17,6 +19,7 @@ def getGreatest(bars, preference):
     
     return(bars[bestBarIndex])
 
+# Shortcut to create Flask Response
 def createResponse(body, statusCode):
     response = make_response(body, statusCode)
     response.mimetype = "text/html"

@@ -16,13 +16,13 @@ while True:
 
 def test_bar_adding():
     
-    request = {
+    request = [{
         "barName": "SuperAwais",
         "wowFactor": 54,
         "capacity": 836,
         "currentTraffic": 111,
         "address": "255 Sidhu Drive Eoin, NJ 08841"
-    }
+    }]
 
     addBar = requests.put("http://clubseek:3000/bars", json = request)
 

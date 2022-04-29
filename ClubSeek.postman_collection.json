@@ -94,6 +94,36 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:8000/barSelection",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Eshaan Mathur\",\n    \"phoneNumber\": 9082834055,\n    \"minWowFactor\": 20,\n    \"maxTraffic\": 600,\n    \"preference\": \"wowFactor\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/barSelection",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"barSelection"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

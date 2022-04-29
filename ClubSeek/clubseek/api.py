@@ -36,35 +36,40 @@ def readiness():
 def add_bar():
     # Get Values from Request 
     values = request.get_json()
-
-    if values["currentTraffic"] > values["capacity"]:
-        returnString = "The bar <b>%s</b> has more traffic than capacity. Please wait until the bar has lower traffic" % (values["barName"])
-        response = make_response(returnString, 400)
-        response.mimetype = "text/html"
-        return(response)
+    allBarObjects = []
 
     # Assemble Data to add to DB
-    bar = Bars(
-        address = values["address"],
-        barName = values["barName"],
-        capacity = values["capacity"],
-        currentTraffic = values["currentTraffic"],
-        wowFactor = values["wowFactor"]
-    )
+    for bar in values:
+        allBarObjects.append(
+            Bars(
+                address = bar["address"],
+                barName = bar["barName"],
+                capacity = bar["capacity"],
+                currentTraffic = bar["currentTraffic"],
+                wowFactor = bar["wowFactor"]
+            )) 
+
+        if bar["currentTraffic"] > bar["capacity"]:
+            returnString = "The bar <b>%s</b> has more traffic than capacity. Please wait until the bar has lower traffic" % (bar["barName"])
+            response = make_response(returnString, 400)
+            response.mimetype = "text/html"
+            return(response)
 
     try: 
         # Add Data to DB
-        db.session.add(bar)
+        db.session.add_all(allBarObjects)
         db.session.commit()
 
         # Make Response
-        returnString = "Success! <b>%s</b> was added to the list of Bars. <br> Run a GET method on the /bars endpoint to see all Bars." % (values["barName"])
+        returnString = "Success! Bars were added to the database. <br> Run a GET method on the /bars endpoint to see all Bars."
         response = make_response(returnString, 200)
         response.mimetype = "text/html"
         return(response)
 
     except IntegrityError as e: 
-        returnString = "The bar <b>%s</b> was already added to the list of Bars. <br><br> Error from Application: %s" % (values["barName"], e)
+
+        db.session.rollback()
+        returnString = "One bar was already added to the list of Bars. <br><br> Error from Application: %s" % (e)
         response = make_response(returnString, 400)
         response.mimetype = "text/html"
         return(response)
@@ -90,7 +95,10 @@ def get_bar():
         barDictionary = dict(barName = bar.barName, wowFactor=bar.wowFactor, capacity=bar.capacity,  currentTraffic=bar.currentTraffic, address=bar.address)
         allBarsDictionary.append(barDictionary)
 
-    return jsonify(allBarsDictionary)
+    returnString = jsonify(allBarsDictionary)
+    response = make_response(returnString, 200)
+    response.mimetype = "application/json"
+    return(response)
 
 # Delete Bar from Database
 @apiEndpoints.route('/bars', methods=['DELETE'])
@@ -123,26 +131,75 @@ def choose_bar():
     values = request.get_json()
     bestBar = None
     response = []
+    
+    # Query Databse for Minimum Requirements
     if values["minWowFactor"] and values["maxTraffic"]:
-        # Query Databse for Minimum Requirements
-        bars = Bars.query.filter(Bars.wowFactor >= values["minWowFactor"]).filter(Bars.currentTraffic <= values["maxTraffic"]).all()
-        
-        # Process Preferences
-        if bars != []:
-            if values["preference"] == "wowFactor":
-                bestBar = getGreatest(bars, "wowFactor")
-            elif values["preference"] == "capacity":
-                bestBar = getGreatest(bars, "capacity")
-            else:
-                response.append("Preference was not defined so it will default to capacity.")
-                bestBar = getGreatest(bars, "capacity")
+        bars = Bars.query.filter(Bars.wowFactor >= values["minWowFactor"]).filter(Bars.currentTraffic <= values["maxTraffic"]).filter(Bars.currentTraffic+1<=Bars.capacity).all()
+    elif values["minWowFactor"]:
+        bars = Bars.query.filter(Bars.wowFactor >= values["minWowFactor"]).filter(Bars.currentTraffic+1<=Bars.capacity).all()
+    elif values["maxTraffic"]:
+        bars = Bars.query.filter(Bars.currentTraffic <= values["maxTraffic"]).filter(Bars.currentTraffic+1<=Bars.capacity).all()
+    else:
+        bars = Bars.query.all()
+    
+    # Process Preferences
+    if bars != []:
+        if values["preference"] == "wowFactor":
+            bestBar = getGreatest(bars, "wowFactor")
+        elif values["preference"] == "capacity":
+            bestBar = getGreatest(bars, "capacity")
+        else:
+            response.append("Preference was not defined so it will default to capacity.")
+            bestBar = getGreatest(bars, "capacity")
+
 
     if bestBar == None: 
         return(createResponse("No Bars Met Your Requirements. Please Edit Your Request Attributes and Try Again.", 300)) 
     else:
-        response.append("<b>%s</b> is the chosen bar based on your preferences! It has a WOW Factor of <b>%s</b> and is <b>%s%%<b> full. <br> The address is <b>%s</b>. Have fun <b>%s</b>!" % (bestBar.barName, bestBar.wowFactor, 100*round(bestBar.currentTraffic/bestBar.capacity, 2), bestBar.address, values["name"])) 
-        returnString = ("<br>".join(response))
-        return(createResponse(returnString, 200))
+        
+        # Add User to Users Table
+        user = Users(
+            userName = values["name"],
+            userPhoneNumber = values["phoneNumber"],
+            assignedBarName = bestBar.barName,
+            assignedBarAddress = bestBar.address
+        )
 
+        try: 
+            db.session.add(user)
+            db.session.commit()
+        except IntegrityError as e: 
+            db.session.rollback()
+            returnString = "The user <b>%s</b> has already used the bar selection service. Usage is limited to once per day. <br><br> Error from Application: %s" % (values["name"], e)
+            response = make_response(returnString, 400)
+            response.mimetype = "text/html"
+            return(response)
+        
+        # Add User to Current Traffic of Bar 
+        bar = Bars.query.filter(Bars.barName == bestBar.barName).filter(Bars.address == bestBar.address).first()
+        bar.currentTraffic = bar.currentTraffic + 1
 
-            
+# Get all Users from Database
+@apiEndpoints.route('/users', methods=['GET'])
+def get_users():
+
+    users = db.session.query(Users).all()
+
+    if users == []:
+        # Make Response that Table is Empty
+        returnString = "There are no Users yet! <br> Add a bar using the GET method on the /barSelection endpoint. <br> See README for request body schema."
+        response = make_response(returnString, 300)
+        response.mimetype = "text/html"
+        return(response)
+
+ 
+    # Make Response with all Bars as a Dictionary
+    allUsersDictionary = []
+    for user in users:
+        userDictionary = dict(userName = user.userName, wowuserPhoneNumberFactor=user.userPhoneNumber, assignedBarName=user.assignedBarName,  assignedBarAddress=user.assignedBarAddress)
+        allUsersDictionary.append(userDictionary)
+
+    returnString = jsonify(allUsersDictionary)
+    response = make_response(returnString, 200)
+    response.mimetype = "application/json"
+    return(response)
