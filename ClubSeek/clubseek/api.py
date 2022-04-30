@@ -1,12 +1,28 @@
 from flask import Blueprint, request, jsonify, make_response
 from flask_expects_json import expects_json
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from get_docker_secret import get_docker_secret
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+import json
 from helpers import *
 
 apiEndpoints = Blueprint('apiEndpoints',__name__)
 
 from constants import *
 from main import db
+
+auth = HTTPBasicAuth()
+applicationCredentials = json.loads((get_docker_secret('application_credentials')))
+
+print(applicationCredentials)
+
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in applicationCredentials and \
+            check_password_hash(applicationCredentials.get(username), password):
+        return username
 
 # Readiness Probe 
 @apiEndpoints.route('/readiness', methods=['GET'])
@@ -32,6 +48,7 @@ def readiness():
 
 # Add Bars to Database
 @apiEndpoints.route('/bars', methods=['PUT'])
+@auth.login_required
 @expects_json(barSchema)
 def add_bar():
     # Get Values from Request 
@@ -61,7 +78,7 @@ def add_bar():
         db.session.commit()
 
         # Make Response
-        returnString = "Success! Bars were added to the database. <br> Run a GET method on the /bars endpoint to see all Bars."
+        returnString = "Success %s! Bars were added to the database. <br> Run a GET method on the /bars endpoint to see all Bars." % (auth.current_user())
         response = make_response(returnString, 200)
         response.mimetype = "text/html"
         return(response)
@@ -102,6 +119,7 @@ def get_bar():
 
 # Delete Bar from Database
 @apiEndpoints.route('/bars', methods=['DELETE'])
+@auth.login_required
 @expects_json(barDeleteSchema)
 def del_bar():
     # Get Values from Request   
@@ -133,28 +151,31 @@ def choose_bar():
     response = []
     
     # Query Databse for Minimum Requirements
-    if values["minWowFactor"] and values["maxTraffic"]:
+    if "minWowFactor" in values and "maxTraffic" in values:
         bars = Bars.query.filter(Bars.wowFactor >= values["minWowFactor"]).filter(Bars.currentTraffic <= values["maxTraffic"]).filter(Bars.currentTraffic+1<=Bars.capacity).all()
-    elif values["minWowFactor"]:
+    elif "minWowFactor" in values:
         bars = Bars.query.filter(Bars.wowFactor >= values["minWowFactor"]).filter(Bars.currentTraffic+1<=Bars.capacity).all()
-    elif values["maxTraffic"]:
+    elif "maxTraffic" in values:
         bars = Bars.query.filter(Bars.currentTraffic <= values["maxTraffic"]).filter(Bars.currentTraffic+1<=Bars.capacity).all()
     else:
         bars = Bars.query.all()
     
     # Process Preferences
     if bars != []:
-        if values["preference"] == "wowFactor":
-            bestBar = getGreatest(bars, "wowFactor")
-        elif values["preference"] == "capacity":
-            bestBar = getGreatest(bars, "capacity")
+        if "preference" in values:
+            if values["preference"] == "wowFactor":
+                bestBar = getGreatest(bars, "wowFactor")
+            elif values["preference"] == "capacity":
+                bestBar = getGreatest(bars, "capacity")
         else:
             response.append("Preference was not defined so it will default to capacity.")
             bestBar = getGreatest(bars, "capacity")
 
 
     if bestBar == None: 
-        return(createResponse("No Bars Met Your Requirements. Please Edit Your Request Attributes and Try Again.", 300)) 
+        response.append("No Bars Met Your Requirements. Please Edit Your Request Attributes and Try Again.")
+        returnString = ("<br>".join(response))
+        return(createResponse(returnString, 300)) 
     else:
         
         # Add User to Users Table
@@ -170,17 +191,22 @@ def choose_bar():
             db.session.commit()
         except IntegrityError as e: 
             db.session.rollback()
-            returnString = "The user <b>%s</b> has already used the bar selection service. Usage is limited to once per day. <br><br> Error from Application: %s" % (values["name"], e)
-            response = make_response(returnString, 400)
-            response.mimetype = "text/html"
-            return(response)
+            response.append("The user <b>%s</b> has already used the bar selection service. Usage is limited to once per day. <br><br> Error from Application: %s" % (values["name"], e))
+            returnString = ("<br>".join(response))
+            return(createResponse(returnString, 400))
         
         # Add User to Current Traffic of Bar 
         bar = Bars.query.filter(Bars.barName == bestBar.barName).filter(Bars.address == bestBar.address).first()
         bar.currentTraffic = bar.currentTraffic + 1
 
+        response.append("<b>%s</b> is the chosen bar based on your preferences! It has a WOW Factor of <b>%s</b> and is <b>%s%%</b> full. <br> The address is <b>%s</b>. Have fun <b>%s</b>!" % (bestBar.barName, bestBar.wowFactor, 100*round(bestBar.currentTraffic/bestBar.capacity, 2), bestBar.address, values["name"])) 
+        returnString = ("<br>".join(response))
+        return(createResponse(returnString, 200))
+
+
 # Get all Users from Database
 @apiEndpoints.route('/users', methods=['GET'])
+@auth.login_required
 def get_users():
 
     users = db.session.query(Users).all()

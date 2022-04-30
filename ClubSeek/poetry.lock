@@ -93,6 +93,17 @@ jsonschema = ">=3.0.1"
 async = ["flask[async] (>=2.0.0)"]
 
 [[package]]
+name = "flask-httpauth"
+version = "4.6.0"
+description = "HTTP authentication for Flask routes"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+flask = "*"
+
+[[package]]
 name = "flask-sqlalchemy"
 version = "2.5.1"
 description = "Adds SQLAlchemy support to your Flask application."
@@ -357,7 +368,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "werkzeug"
-version = "2.1.1"
+version = "2.1.2"
 description = "The comprehensive WSGI web application library."
 category = "main"
 optional = false
@@ -381,7 +392,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "7cb901a005e004f53de87154df172d2415fc2154332773322709e4a196806fdc"
+content-hash = "629486c196c27bdbb3ef68fcd8831839d0f791da6be498832aca811fb830cd93"
 
 [metadata.files]
 atomicwrites = [
@@ -414,6 +425,10 @@ flask = [
 ]
 flask-expects-json = [
     {file = "flask-expects-json-1.7.0.tar.gz", hash = "sha256:4ef186a86f10572a21af82e549546deda024326628b4a96cd14d3a0f71754d62"},
+]
+flask-httpauth = [
+    {file = "Flask-HTTPAuth-4.6.0.tar.gz", hash = "sha256:2076cf86e84c6aa442ee03344bff751eae133d35a1a48931e6f99f147161b55b"},
+    {file = "Flask_HTTPAuth-4.6.0-py3-none-any.whl", hash = "sha256:29191747bd6a6e81980fd9c415ec1279612b06ee4a7cad8463856f2ed571ec77"},
 ]
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-2.5.1.tar.gz", hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912"},
@@ -645,8 +660,8 @@ urllib3 = [
     {file = "urllib3-1.26.9.tar.gz", hash = "sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"},
 ]
 werkzeug = [
-    {file = "Werkzeug-2.1.1-py3-none-any.whl", hash = "sha256:3c5493ece8268fecdcdc9c0b112211acd006354723b280d643ec732b6d4063d6"},
-    {file = "Werkzeug-2.1.1.tar.gz", hash = "sha256:f8e89a20aeabbe8a893c24a461d3ee5dad2123b05cc6abd73ceed01d39c3ae74"},
+    {file = "Werkzeug-2.1.2-py3-none-any.whl", hash = "sha256:72a4b735692dd3135217911cbeaa1be5fa3f62bffb8745c5215420a03dc55255"},
+    {file = "Werkzeug-2.1.2.tar.gz", hash = "sha256:1ce08e8093ed67d638d63879fd1ba3735817f7a80de3674d293f5984f25fb6e6"},
 ]
 zipp = [
     {file = "zipp-3.8.0-py3-none-any.whl", hash = "sha256:c4f6e5bbf48e74f7a38e7cc5b0480ff42b0ae5178957d564d18932525d5cf099"},

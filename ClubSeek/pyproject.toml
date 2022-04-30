@@ -13,6 +13,8 @@ get-docker-secret = "^1.0.2"
 SQLAlchemy = "^1.4.35"
 PyMySQL = "^1.0.2"
 Flask-SQLAlchemy = "^2.5.1"
+Flask-HTTPAuth = "^4.6.0"
+Werkzeug = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

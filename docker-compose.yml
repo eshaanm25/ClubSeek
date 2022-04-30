@@ -11,6 +11,7 @@ services:
     secrets:
       - db_user
       - db_password
+      - application_credentials
     links:
     - clubdatabases
 
@@ -41,3 +42,5 @@ secrets:
     file: ./secrets/db_password
   db_root_password:
     file: ./secrets/db_root_password
+  application_credentials:
+    file: ./secrets/application_credentials

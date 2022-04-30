@@ -7,9 +7,12 @@ services:
     secrets:
       - db_user
       - db_password
+      - application_credentials
 
 secrets:
   db_user:
     file: ../secrets/db_user
   db_password:
     file: ../secrets/db_password
+  application_credentials:
+    file: ./secrets/application_credentials
