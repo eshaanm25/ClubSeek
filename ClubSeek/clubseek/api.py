@@ -24,7 +24,7 @@ def readiness():
 
         # Make Unsuccessful Response if there is no conection to DB
         returnString = "ClubSeek is waiting for the MySQL Database to start. Connection status: %s" % (e)
-        return(createResponse(returnString, 502))
+        return(createResponse(returnString, 503))
 
 # Add Bars to Database
 @apiEndpoints.route('/bars', methods=['POST'])
@@ -83,7 +83,7 @@ def update_bar():
     if bar == []:
         # Make Response that Table is Empty
         returnString = "There are no Bars with this Name and Address <br> Add a bar using the POST method on the /bar endpoint. <br> See README for request body schema."
-        return(createResponse(returnString, 300))
+        return(createResponse(returnString, 400))
 
     # Update Bar information
     if "wowFactorChange" in values:
@@ -93,12 +93,7 @@ def update_bar():
     if "currentTrafficChange" in values:
         bar.currentTraffic = values["currentTrafficChange"]
     
-    try:
-        db.session.commit()
-    except SQLAlchemyError as e:
-        # Make Unsuccessful Response if unable to Update
-        returnString = "ClubSeek is waiting for the MySQL Database to start. Connection status: %s" % (e)
-        return(createResponse(returnString, 502))
+    db.session.commit()
 
     # Make Successful Reponse 
     returnString = "Success %s! Bar was updated. <br> Run a GET method on the /bars endpoint to see all Bars." % (auth.current_user())
@@ -115,7 +110,7 @@ def get_bar():
     if bars == []:
         # Make Response that Table is Empty
         returnString = "There are no Bars yet! <br> Add a bar using the POST method on the /bar endpoint. <br> See README for request body schema."
-        return(createResponse(returnString, 300))
+        return(createResponse(returnString, 204))
 
  
     # Make Response with all Bars as a Dictionary
@@ -150,7 +145,7 @@ def del_bar():
     else:
         # Make Response that Bar does not Exist
         returnString = "This Bar Does not Exist in the Database! <br> See existing bars using the GET method on the /bars endpoint"
-        return(createResponse(returnString, 300))
+        return(createResponse(returnString, 400))
 
 # Bar Selection Algorithm. Chooses a Bar Based on Filters Provided in Input
 @apiEndpoints.route('/barSelection', methods=['GET'])
@@ -186,7 +181,7 @@ def choose_bar():
     if bestBar == None: 
         response.append("No Bars Met Your Requirements. Please Edit Your Request Attributes and Try Again.")
         returnString = ("<br>".join(response))
-        return(createResponse(returnString, 300)) 
+        return(createResponse(returnString, 204)) 
     else:
         # Add User and Bar Selection to Users Table
         user = Users(
@@ -228,7 +223,7 @@ def get_users():
     if users == []:
         # Make Response that Table is Empty
         returnString = "There are no Users yet! <br> Add a bar using the GET method on the /barSelection endpoint. <br> See README for request body schema."
-        return(createResponse(returnString, 300))
+        return(createResponse(returnString, 204))
 
     # Make Response with all Bars as a Dictionary
     allUsersDictionary = []

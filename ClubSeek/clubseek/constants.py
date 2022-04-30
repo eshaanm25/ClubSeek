@@ -23,7 +23,7 @@ barDeleteSchema = {
     'type': 'object',
     'properties': {
         'barName': {'type': 'string',  "minLength": 4, "maxLength": 30},
-        'address': {'type': 'string',  "minLength": 4, "maxLength": 30}
+        'address': {'type': 'string',  "minLength": 4, "maxLength": 255}
     },
     'required': ['barName', 'address']
 }
