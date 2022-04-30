@@ -1,9 +1,14 @@
 from clubseek import *
+from requests.auth import HTTPBasicAuth
+from werkzeug.security import check_password_hash
+from get_docker_secret import get_docker_secret
 import requests
 import time
 import json
 
-# Connect to Database
+passwordAdmin = "password"
+
+# Wait for API Endpoint to Connect to Database
 while True:
     try:
         response = requests.get("http://clubseek:3000/readiness")
@@ -15,7 +20,7 @@ while True:
         continue
 
 def test_bar_adding():
-    
+    # Add Bar
     request = [{
         "barName": "SuperAwais",
         "wowFactor": 54,
@@ -24,7 +29,7 @@ def test_bar_adding():
         "address": "255 Sidhu Drive Eoin, NJ 08841"
     }]
 
-    addBar = requests.put("http://clubseek:3000/bars", json = request)
+    addBar = requests.put("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
 
     getBar = requests.get("http://clubseek:3000/bars")
     
@@ -38,14 +43,33 @@ def test_bar_adding():
 
     assert json.loads(getBar.content) == expected
 
-def test_bar_deleting_bar():
+# Reset DB
+request = {
+    "barName": "SuperAwais",
+    "address": "255 Sidhu Drive Eoin, NJ 08841"
+}
 
+delBar = requests.delete("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
+
+def test_bar_deleting_bar():
+    
+    # Add Bar
+    request = [{
+        "barName": "SuperAwais",
+        "wowFactor": 54,
+        "capacity": 836,
+        "currentTraffic": 111,
+        "address": "255 Sidhu Drive Eoin, NJ 08841"
+    }]
+
+    addBar = requests.put("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
     request = {
         "barName": "SuperAwais",
         "address": "255 Sidhu Drive Eoin, NJ 08841"
     }
 
-    delBar = requests.delete("http://clubseek:3000/bars", json = request)
+    # Delete Bar
+    delBar = requests.delete("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
 
     getBar = requests.get("http://clubseek:3000/bars")
     

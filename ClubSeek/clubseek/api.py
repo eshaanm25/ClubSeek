@@ -3,7 +3,7 @@ from flask_expects_json import expects_json
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from get_docker_secret import get_docker_secret
 from flask_httpauth import HTTPBasicAuth
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 import json
 from helpers import *
 
@@ -15,9 +15,8 @@ from main import db
 auth = HTTPBasicAuth()
 applicationCredentials = json.loads((get_docker_secret('application_credentials')))
 
-print(applicationCredentials)
-
-
+passwordAdmin = check_password_hash("admin", json.loads((get_docker_secret('application_credentials')))["admin"])
+print(passwordAdmin)
 @auth.verify_password
 def verify_password(username, password):
     if username in applicationCredentials and \
