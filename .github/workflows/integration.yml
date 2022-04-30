@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
+      - name: Integration Testing
         run: 	docker compose -f docker-compose.yml -f ./dockerTestingFiles/docker-compose.integrationtest.yml up --build --quiet-pull --exit-code-from integrationtest

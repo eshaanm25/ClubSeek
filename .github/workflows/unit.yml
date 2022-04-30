@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
+      - name: Unit Testing
         run: 	docker compose -f ./dockerTestingFiles/docker-compose.unittest.yml up --quiet-pull --build --exit-code-from clubseek
