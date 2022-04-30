@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "ec32cd95-1d0b-4c2d-97a6-19b179c4134f",
+		"name": "ClubSeek API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8000/users",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/barSelection",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Eshaa Mathur\",\n    \"phoneNumber\": 9082834055,\n    \"minWowFactor\": 20,\n    \"maxTraffic\": 900,\n    \"preference\": \"wowFactor\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/barSelection",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"barSelection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/readiness",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/bars",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/bars",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"barName\": \"SuperEshaan\",\n    \"address\": \"255 Sidhu Drive Eoin, NJ 08841\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/bars",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"barName\": \"SuperEshaan\",\n        \"wowFactor\": 30,\n        \"capacity\": 100,\n        \"currentTraffic\": 20,\n        \"address\": \"30 Eshaan Drive Eoin, NJ 08841\"\n    },\n    {\n        \"barName\": \"SuperAwais\",\n        \"wowFactor\": 99,\n        \"capacity\": 1000,\n        \"currentTraffic\": 900,\n        \"address\": \"84 Awais Drive Akku, NJ 08841\"\n    }, \n    {\n        \"barName\": \"SuperAkku\",\n        \"wowFactor\": 40,\n        \"capacity\": 300,\n        \"currentTraffic\": 241,\n        \"address\": \"84 Akku Drive Awais, NJ 08841\"\n    }, \n    {\n        \"barName\": \"SuperSidhu\",\n        \"wowFactor\": 89,\n        \"capacity\": 1000,\n        \"currentTraffic\": 800,\n        \"address\": \"84 Sidhu Drive Awais, NJ 08841\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/bars",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"barName\": \"SuperEshaan\",\n    \"address\": \"30 Eshaan Drive Eoin, NJ 08841\",\n    \"wowFactorChange\": 31,\n    \"capacityChange\": 100,\n    \"currentTrafficChange\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/bars",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"bars"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

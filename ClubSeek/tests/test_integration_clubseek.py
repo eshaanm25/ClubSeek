@@ -29,7 +29,7 @@ def test_bar_adding():
         "address": "255 Sidhu Drive Eoin, NJ 08841"
     }]
 
-    addBar = requests.put("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
+    addBar = requests.post("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
 
     getBar = requests.get("http://clubseek:3000/bars")
     
@@ -43,37 +43,18 @@ def test_bar_adding():
 
     assert json.loads(getBar.content) == expected
 
-# Reset DB
-request = {
-    "barName": "SuperAwais",
-    "address": "255 Sidhu Drive Eoin, NJ 08841"
-}
-
-delBar = requests.delete("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
-
 def test_bar_deleting_bar():
-    
-    # Add Bar
-    request = [{
-        "barName": "SuperAwais",
-        "wowFactor": 54,
-        "capacity": 836,
-        "currentTraffic": 111,
-        "address": "255 Sidhu Drive Eoin, NJ 08841"
-    }]
-
-    addBar = requests.put("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
     request = {
         "barName": "SuperAwais",
         "address": "255 Sidhu Drive Eoin, NJ 08841"
-    }
+        }
 
     # Delete Bar
     delBar = requests.delete("http://clubseek:3000/bars", json = request, auth = HTTPBasicAuth('admin', passwordAdmin))
 
     getBar = requests.get("http://clubseek:3000/bars")
     
-    assert(getBar.status_code == 300)
+    assert(delBar.status_code == 200)
 
     
 

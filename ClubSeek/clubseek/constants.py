@@ -1,5 +1,10 @@
 from main import db 
 
+'''
+Schemas and DB Classes for validating API Request Schemas and Communicating with DB Tables
+'''
+
+# Request Schema for Adding Bars (/bars POST Request)
 barSchema = {
     'type': 'array',
     "minItems": 1,
@@ -13,6 +18,7 @@ barSchema = {
     'required': ['barName', 'wowFactor', 'capacity', 'currentTraffic']
 }
 
+# Request Schema for Deleting Bars (/bars DELETE Request)
 barDeleteSchema = {
     'type': 'object',
     'properties': {
@@ -22,6 +28,21 @@ barDeleteSchema = {
     'required': ['barName', 'address']
 }
 
+# Request Schema for Updating Bars (/bars PUT Request)
+barUpdateSchema = {
+    'type': 'object',
+    'properties': {
+        'barName': {'type': 'string',  "minLength": 4, "maxLength": 30},
+        'wowFactorChange': {'type': 'integer', "minimum": 1, "maximum": 100},
+        'capacityChange': {'type': 'integer', "minimum": 1, "maximum": 1000},
+        'currentTrafficChange': {'type': 'integer', "minimum": 1, "maximum": 1000},
+        'address': {'type': 'string', "minLength": 4, "maxLength": 255},
+    },
+    'required': ['barName', 'address']
+}
+
+
+# Request Schema for Choosing a Bar (/barSelection GET Request)
 barAlgorithmSchema = {
     'type': 'object',
     'properties': {
@@ -34,7 +55,7 @@ barAlgorithmSchema = {
     'required': ['name', 'phoneNumber']
 }
 
-# Bars Schema
+# SQL Alchemy DB Class for Communicating with Bars Table 
 class Bars(db.Model):
     __tablename__ = "Bars"
 
@@ -44,6 +65,7 @@ class Bars(db.Model):
     currentTraffic = db.Column(db.Integer)
     wowFactor = db.Column(db.Integer)
 
+# SQL Alchemy DB Class for Communicating with Users Table 
 class Users(db.Model):
     __tablename__ = "Users"
 
