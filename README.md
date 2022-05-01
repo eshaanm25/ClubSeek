@@ -21,36 +21,36 @@ API documentation is located on [Postman](https://documenter.getpostman.com/view
 - To run unit tests, run `make unittest` in the root folder of the project
 
 ## File Tree
-📦 **YelpHelp**
-┣ 📂 **.github**
-┃ ┗ 📂 **workflows** - GitHub Workflows
-┃ ┃ ┣ **integration.yml** - GitHub Action Integration Tests Workflow
-┃ ┃ ┗ **unit.yml** - GitHub Action Unit Test Workflow
-┣ 📂 **ClubSeek** - Python Code for ClubSeek Application
-┃ ┣ 📂 **clubseek** - Poetry Project
-┃ ┃ ┣ **api.py** - All API Endpoints for all CRUD Operations in Application
-┃ ┃ ┣ **constants.py** - Schemas and DB Classes for API Request Schemas and SQLAlchemy
-┃ ┃ ┣ **helpers.py** - Helper Functions for API Endpoints
-┃ ┃ ┗ **main.py** - Initializes Flask API and connects to Database
-┃ ┣ 📂 **tests**
-┃ ┃ ┣ **test_integration_clubseek.py** - Integration Tests
-┃ ┃ ┗ **test_unit_clubseek.py** - Unit Tests
-┃ ┣ **poetry.lock** - Poetry Metadata File
-┃ ┗ **pyproject.toml** - Poetry Dependency File
-┣ 📂 **databaseInit** - Script to Initialize Database
-┃ ┗ **init.sql** - Initialization Script for Database to create Users and Bars Table
-┣ 📂 **dockerTestingFiles** - Docker Build and Compose Files for Unit and Integration File
-┃ ┣ **Dockerfile** - Build File for Poetry Project with Developer Dependencies
-┃ ┣ **docker-compose.integrationtest.yml** - Integration Test Docker Compose File
-┃ ┗ **docker-compose.unittest.yml** - Unit Test Docker Compose File
-┣ 📂 **secrets** - Location where secrets are stored and read from
-┃ ┣ **application_credentials** - Credentials for AuthZ with API
-┃ ┣ **db_password** - Password for DB 
-┃ ┣ **db_root_password** - Root Password for DB
-┃ ┗ **db_user** - Username for DB 
-┣ **Dockerfile** - Main Docker Build File for ClubSeek Image
-┣ **Makefile** - Makefile for command shortcuts
-┗ **docker-compose.yml** - Main Docker Compose File for ClubSeek Application
+📦 **YelpHelp** <br>
+┣ 📂 **.github**<br>
+┃ ┗ 📂 **workflows** - GitHub Workflows<br>
+┃ ┃ ┣ **integration.yml** - GitHub Action Integration Tests Workflow<br>
+┃ ┃ ┗ **unit.yml** - GitHub Action Unit Test Workflow<br>
+┣ 📂 **ClubSeek** - Python Code for ClubSeek Application<br>
+┃ ┣ 📂 **clubseek** - Poetry Project<br>
+┃ ┃ ┣ **api.py** - All API Endpoints for all CRUD Operations in Application<br>
+┃ ┃ ┣ **constants.py** - Schemas and DB Classes for API Request Schemas and SQLAlchemy<br>
+┃ ┃ ┣ **helpers.py** - Helper Functions for API Endpoints<br>
+┃ ┃ ┗ **main.py** - Initializes Flask API and connects to Database<br>
+┃ ┣ 📂 **tests**<br>
+┃ ┃ ┣ **test_integration_clubseek.py** - Integration Tests<br>
+┃ ┃ ┗ **test_unit_clubseek.py** - Unit Tests<br>
+┃ ┣ **poetry.lock** - Poetry Metadata File<br>
+┃ ┗ **pyproject.toml** - Poetry Dependency File<br>
+┣ 📂 **databaseInit** - Script to Initialize Database<br>
+┃ ┗ **init.sql** - Initialization Script for Database to create Users and Bars Table<br>
+┣ 📂 **dockerTestingFiles** - Docker Build and Compose Files for Unit and Integration File<br>
+┃ ┣ **Dockerfile** - Build File for Poetry Project with Developer Dependencies<br>
+┃ ┣ **docker-compose.integrationtest.yml** - Integration Test Docker Compose File<br>
+┃ ┗ **docker-compose.unittest.yml** - Unit Test Docker Compose File<br>
+┣ 📂 **secrets** - Location where secrets are stored and read from<br>
+┃ ┣ **application_credentials** - Credentials for AuthZ with API<br>
+┃ ┣ **db_password** - Password for DB <br>
+┃ ┣ **db_root_password** - Root Password for DB<br>
+┃ ┗ **db_user** - Username for DB <br>
+┣ **Dockerfile** - Main Docker Build File for ClubSeek Image<br>
+┣ **Makefile** - Makefile for command shortcuts<br>
+┗ **docker-compose.yml** - Main Docker Compose File for ClubSeek Application<br>
 
 ## Technical Overview
 
