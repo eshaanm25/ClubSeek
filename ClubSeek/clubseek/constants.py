@@ -47,9 +47,9 @@ barAlgorithmSchema = {
     'type': 'object',
     'properties': {
         'name': {'type': 'string',  "minLength": 4, "maxLength": 30},
-        'phoneNumber': {'type': 'integer'},
-        'minWowFactor': {'type': 'integer'},
-        'maxTraffic': {'type': 'integer'},
+        'phoneNumber': {'type': 'string' , "minLength": 10, "maxLength": 15},
+        'minWowFactor': {'type': 'integer', "minimum": 1, "maximum": 100},
+        'maxTraffic': {'type': 'integer', "minimum": 1, "maximum": 1000},
         'preference': {'type': 'string'}
     },
     'required': ['name', 'phoneNumber']

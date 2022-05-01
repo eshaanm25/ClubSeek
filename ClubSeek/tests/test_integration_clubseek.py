@@ -1,7 +1,5 @@
 from clubseek import *
 from requests.auth import HTTPBasicAuth
-from werkzeug.security import check_password_hash
-from get_docker_secret import get_docker_secret
 import requests
 import time
 import json

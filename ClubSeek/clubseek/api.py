@@ -76,6 +76,11 @@ def update_bar():
     # Get Values from Request 
     values = request.get_json()
 
+    # Check if Current Traffic of a Bar Exceeds its Reported Capacity
+    if values["currentTrafficChange"] > values["capacityChange"]:
+        returnString = "The bar <b>%s</b> has more traffic than capacity. Please wait until the bar has lower traffic" % (values["barName"])
+        return(createResponse(returnString, 400))
+
     # Query DB for Bar to Update
     bar = Bars.query.filter(Bars.barName == values["barName"]).filter(Bars.address == values["address"]).first()
 
@@ -110,7 +115,7 @@ def get_bar():
     if bars == []:
         # Make Response that Table is Empty
         returnString = "There are no Bars yet! <br> Add a bar using the POST method on the /bar endpoint. <br> See README for request body schema."
-        return(createResponse(returnString, 204))
+        return(createResponse(returnString, 211))
 
  
     # Make Response with all Bars as a Dictionary
@@ -181,7 +186,7 @@ def choose_bar():
     if bestBar == None: 
         response.append("No Bars Met Your Requirements. Please Edit Your Request Attributes and Try Again.")
         returnString = ("<br>".join(response))
-        return(createResponse(returnString, 204)) 
+        return(createResponse(returnString, 211)) 
     else:
         # Add User and Bar Selection to Users Table
         user = Users(
@@ -223,7 +228,7 @@ def get_users():
     if users == []:
         # Make Response that Table is Empty
         returnString = "There are no Users yet! <br> Add a bar using the GET method on the /barSelection endpoint. <br> See README for request body schema."
-        return(createResponse(returnString, 204))
+        return(createResponse(returnString, 211))
 
     # Make Response with all Bars as a Dictionary
     allUsersDictionary = []
