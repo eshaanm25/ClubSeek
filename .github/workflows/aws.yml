@@ -15,10 +15,8 @@
 
 name: Deploy to Amazon ECS
 
-on: 
-  push:
-    branches:
-      - main
+on: push
+
 
 env:
   AWS_REGION: us-east-1                  # set this to your preferred AWS region, e.g. us-west-1
@@ -52,7 +50,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
+        IMAGE_TAG: clubseek
       run: |
         # Build a docker container and
         # push it to ECR so that it can
