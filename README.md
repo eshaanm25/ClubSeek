@@ -75,4 +75,4 @@ Docker Secrets are declared in the [secrets](https://github.com/radical-teach/ma
 ### GitHub Actions
 GitHub Actions are declared in the [.github/workflows](https://github.com/radical-teach/major-project-group-4/tree/main/.github/workflows) folder. The `main` branch is protected and GitHub Actions are used to ensure that all Unit Tests and Integration Tests have passed before a PR can be merged into `main`. 
 
-GitHub Actions work by running Unit Testing and Integration Testing containers that are declared in [dockerTestingFiles](https://github.com/radical-teach/major-project-group-4/tree/main/dockerTestingFiles "dockerTestingFiles") and read their error codes to determine if tests have failed or passed
+GitHub Actions work by running Unit Testing and Integration Testing containers that are declared in [dockerTestingFiles](https://github.com/radical-teach/major-project-group-4/tree/main/dockerTestingFiles "dockerTestingFiles") and reading their error codes to determine if tests have failed or passed
