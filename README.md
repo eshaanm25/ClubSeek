@@ -1,6 +1,5 @@
 
 # ClubSeek
-
 ClubSeek is service that specializes in recommending bars based on user preferences of quality and occupancy. Clients can use the API to view available Bars and get recommendations based on their personal preferences. Bar Owners can use the API to perform CRUD operations on Bars and view clients assigned to their bar
 
 ## Quick Start
@@ -12,11 +11,14 @@ ClubSeek is service that specializes in recommending bars based on user preferen
 3. Run `make run` in the root folder of the project
 4. Install the [Postman API Collection](https://documenter.getpostman.com/view/16583544/UyrGBZmX) and follow API Documentation to interact with API endpoint
 
+> The Testing Credentials for AuthZ are: <br>
+> **username**: `admin`<br>
+> **password**: `password`
+
 ## API Documentation
 API documentation is located on [Postman](https://documenter.getpostman.com/view/16583544/UyrGBZmX). 
 
 ## Testing 
-
 - To run integration tests, run `make integrationtest` in the root folder of the project
 - To run unit tests, run `make unittest` in the root folder of the project
 
@@ -53,7 +55,6 @@ API documentation is located on [Postman](https://documenter.getpostman.com/view
 ┗ **docker-compose.yml** - Main Docker Compose File for ClubSeek Application<br>
 
 ## Technical Overview
-
 The ClubSeek Application runs on Python and the uses the following packages:
 - [Flask](https://pypi.org/project/Flask/): Python web application framework used for API Endpoints
 - [SQLAlchemy](https://pypi.org/project/SQLAlchemy/): Used to connect and preform CRUD operations on MySQL Database
