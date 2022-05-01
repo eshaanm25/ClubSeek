@@ -26,5 +26,9 @@ RUN poetry config virtualenvs.create false \
   && poetry install $(test "$YOUR_ENV" == production) --no-interaction --no-ansi
 
 # Creating folders, and files for a project:
-COPY ClubSeek /code
+COPY ClubSeek /
+
+# Add Label to Docker Image (test)
+LABEL org.opencontainers.image.source https://github.com/radical-teach/major-project-group-4
+
 

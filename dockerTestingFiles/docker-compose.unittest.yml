@@ -5,8 +5,7 @@ services:
     build: ../
     command: "poetry run pytest tests/test_unit_clubseek.py"
     secrets:
-      - db_user
-      - db_password
+      - db_uri
       - application_credentials
 
 secrets:
@@ -16,3 +15,5 @@ secrets:
     file: ../secrets/db_password
   application_credentials:
     file: ../secrets/application_credentials
+  db_uri:
+    file: ../secrets/db_uri

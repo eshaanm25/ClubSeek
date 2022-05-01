@@ -9,13 +9,12 @@ Initialize Flask API and connect to Database
 
 
 # Get DB Username and Password from Docker Secrets
-dbUsername = get_docker_secret('db_user')
-dbPassword = get_docker_secret('db_password')
+dbURI = get_docker_secret('db_uri')
 
 # Configure API Endpoint
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://%s:%s@clubdatabases:3306/clubdatabase' % (dbUsername, dbPassword) 
+app.config['SQLALCHEMY_DATABASE_URI'] = dbURI
 app.register_blueprint(apiEndpoints) # Register API Endpoints from api.py
 db = SQLAlchemy(app) # Define DB bject for creating DB Sessions
 

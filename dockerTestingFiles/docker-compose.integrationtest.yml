@@ -8,16 +8,13 @@ services:
       clubseek:
         condition: service_started
     secrets:
-      - db_user
-      - db_password
+      - db_uri
       - application_credentials
     links:
     - clubseek
 
 secrets:
-  db_user:
-    file: ./secrets/db_user
-  db_password:
-    file: ./secrets/db_password
   application_credentials:
     file: ./secrets/application_credentials
+  db_uri:
+    file: ./secrets/db_uri

@@ -41,7 +41,7 @@ API documentation is located on [Postman](https://documenter.getpostman.com/view
 ┃ ┗ **pyproject.toml** - Poetry Dependency File<br>
 ┣ 📂 **databaseInit** - Script to Initialize Database<br>
 ┃ ┗ **init.sql** - Initialization Script for Database to create Users and Bars Table<br>
-┣ 📂 **dockerTestingFiles** - Docker Build and Compose Files for Unit and Integration File<br>
+┣ 📂 **dockerTestingFiles** - Docker Build and Compose Files for Unit and Integration Tests<br>
 ┃ ┣ **Dockerfile** - Build File for Poetry Project with Developer Dependencies<br>
 ┃ ┣ **docker-compose.integrationtest.yml** - Integration Test Docker Compose File<br>
 ┃ ┗ **docker-compose.unittest.yml** - Unit Test Docker Compose File<br>

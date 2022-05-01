@@ -9,9 +9,8 @@ services:
       clubdatabases:
         condition: service_healthy
     secrets:
-      - db_user
-      - db_password
       - application_credentials
+      - db_uri
     links:
     - clubdatabases
 
@@ -42,5 +41,7 @@ secrets:
     file: ./secrets/db_password
   db_root_password:
     file: ./secrets/db_root_password
+  db_uri:
+    file: ./secrets/db_uri
   application_credentials:
     file: ./secrets/application_credentials
