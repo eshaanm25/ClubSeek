@@ -1,31 +1,17 @@
-FROM python:3.9-alpine
+FROM python:3.9-slim-buster
 
-ARG YOUR_ENV
+WORKDIR /app
 
-ENV YOUR_ENV=${YOUR_ENV} \
-  PYTHONFAULTHANDLER=1 \
-  PYTHONUNBUFFERED=1 \
-  PYTHONHASHSEED=random \
-  PIP_NO_CACHE_DIR=off \
-  PIP_DISABLE_PIP_VERSION_CHECK=on \
-  PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_VERSION=1.1.13
+# Install poetry:
+RUN pip install poetry
 
-# Add Compiler
-RUN apk add -U --no-cache gcc build-base linux-headers ca-certificates python3-dev libffi-dev libressl-dev libxslt-dev
+# Copy in the config files:
+COPY ClubSeek/pyproject.toml ClubSeek/poetry.lock ./
+# Install only dependencies:
+RUN poetry install --no-root 
 
-# System deps:
-RUN pip install "poetry==$POETRY_VERSION"
-
-# Copy only requirements to cache them in docker layer
-WORKDIR /code
-COPY ClubSeek/poetry.lock ClubSeek/pyproject.toml /code/
-
-# Project initialization:
-RUN poetry config virtualenvs.create false \
-  && poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
-
-# Creating folders, and files for a project:
-COPY ClubSeek /code
+# Copy in everything else and install:
+COPY /ClubSeek .
+RUN poetry install 
 
 CMD [ "poetry" , "run" , "python" , "clubseek/main.py"]

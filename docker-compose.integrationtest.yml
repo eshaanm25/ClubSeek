@@ -3,7 +3,7 @@ services:
   
   integrationtest:
     build: .
-    command: "poetry run pytest tests/test_integration_clubseek.py -v"
+    command: "poetry run pytest tests/test_integration_clubseek.py -v --durations=0"
     depends_on:
       clubseek:
         condition: service_started

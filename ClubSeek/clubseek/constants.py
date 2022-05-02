@@ -1,4 +1,4 @@
-from main import db 
+
 
 '''
 Schemas and DB Classes for validating API Request Schemas and Communicating with DB Tables
@@ -54,23 +54,4 @@ barAlgorithmSchema = {
     },
     'required': ['name', 'phoneNumber']
 }
-
-# SQL Alchemy DB Class for Communicating with Bars Table 
-class Bars(db.Model):
-    __tablename__ = "Bars"
-
-    address = db.Column(db.String(255), primary_key = True)
-    barName = db.Column(db.String(30), primary_key = True)
-    capacity = db.Column(db.Integer)
-    currentTraffic = db.Column(db.Integer)
-    wowFactor = db.Column(db.Integer)
-
-# SQL Alchemy DB Class for Communicating with Users Table 
-class Users(db.Model):
-    __tablename__ = "Users"
-
-    userName = db.Column(db.String(255), primary_key = True)
-    userPhoneNumber = db.Column(db.String(15), primary_key = True)
-    assignedBarName = db.Column(db.String(30))
-    assignedBarAddress = db.Column(db.String(255))
 

@@ -41,10 +41,6 @@ API documentation is located on [Postman](https://documenter.getpostman.com/view
 ┃ ┗ **pyproject.toml** - Poetry Dependency File<br>
 ┣ 📂 **databaseInit** - Script to Initialize Database<br>
 ┃ ┗ **init.sql** - Initialization Script for Database to create Users and Bars Table<br>
-┣ 📂 **dockerTestingFiles** - Docker Build and Compose Files for Unit and Integration Tests<br>
-┃ ┣ **Dockerfile** - Build File for Poetry Project with Developer Dependencies<br>
-┃ ┣ **docker-compose.integrationtest.yml** - Integration Test Docker Compose File<br>
-┃ ┗ **docker-compose.unittest.yml** - Unit Test Docker Compose File<br>
 ┣ 📂 **secrets** - Location where secrets are stored and read from<br>
 ┃ ┣ **application_credentials** - Credentials for AuthZ with API<br>
 ┃ ┣ **db_password** - Password for DB <br>
@@ -52,6 +48,8 @@ API documentation is located on [Postman](https://documenter.getpostman.com/view
 ┃ ┗ **db_user** - Username for DB <br>
 ┣ **Dockerfile** - Main Docker Build File for ClubSeek Image<br>
 ┣ **Makefile** - Makefile for command shortcuts<br>
+┃ **docker-compose.integrationtest.yml** - Integration Test Docker Compose File<br>
+┃ **docker-compose.unittest.yml** - Unit Test Docker Compose File<br>
 ┗ **docker-compose.yml** - Main Docker Compose File for ClubSeek Application<br>
 
 ## Technical Overview
