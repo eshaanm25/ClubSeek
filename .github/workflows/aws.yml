@@ -15,7 +15,11 @@
 
 name: Deploy to Amazon ECS
 
-on: push
+on: 
+  push:
+    branches:
+      main
+
 
 
 env:
