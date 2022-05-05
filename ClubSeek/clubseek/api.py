@@ -86,7 +86,7 @@ def update_bar():
     bar = clubseek.main.Bars.query.filter(clubseek.main.Bars.barName == values["barName"]).filter(clubseek.main.Bars.address == values["address"]).first()
 
     # Check for Empty Table
-    if bar == []:
+    if bar == None:
         # Make Response that Table is Empty
         returnString = "There are no Bars with this Name and Address <br> Add a bar using the POST method on the /bar endpoint. <br> See README for request body schema."
         return(clubseek.helpers.createResponse(returnString, 400))

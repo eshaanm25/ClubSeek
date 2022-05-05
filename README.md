@@ -2,16 +2,11 @@
 # ClubSeek
 ClubSeek is service that specializes in recommending bars based on user preferences of quality and occupancy. Clients can use the API to view available Bars and get recommendations based on their personal preferences. Bar Owners can use the API to perform CRUD operations on Bars and view clients assigned to their bar
 
-## Understanding the Documentation
-For this project, we have two main documentation files: 
-- **Major Project Summary Document - Team 4** - provides only the details of the final iteration of the project, including all assumptions, requirements, diagrams, testing, backlog, etc. The comprehensive report shows the sprint-by-sprint evolution of the project, so diagrams and documentation within that report will show change over time
-- **Major Project Comprehensive Report - Team 4** In order to get a quick grasp of our project, view the summary document and utilize the comprehensive report for the more detailed documentation
-
 ## Quick Start
 1. Install Docker. See [Docker Installation Instructions](https://docs.docker.com/get-docker/)
 
 2. Clone into GitHub Repo with: 
-```git clone https://github.com/radical-teach/minor-project-team-4.git```
+```git clone https://github.com/eshaanm25/ClubSeek```
 
 3. Run `make run` in the root folder of the project
 4. Install the [Postman API Collection](https://documenter.getpostman.com/view/16583544/UyrGBZmX) and follow API Documentation to interact with API endpoint
@@ -71,15 +66,15 @@ Developer Dependencies:
 - [pytest](https://pypi.org/project/pytest/) - Testing Framework for Unit Testing
 - [requests](https://pypi.org/project/requests/) - HTTP Library for Integration Testing
 
-The Application Image is created with a [Dockerfile](https://github.com/radical-teach/major-project-group-4/blob/main/Dockerfile) and the MySQL Database as well as the application containers are declared in a the [docker-compose.yml](https://github.com/radical-teach/major-project-group-4/blob/main/docker-compose.yml) file.
+The Application Image is created with a [Dockerfile](https://github.com/eshaanm25/ClubSeek/blob/main/Dockerfile) and the MySQL Database as well as the application containers are declared in a the [docker-compose.yml](https://github.com/eshaanm25/ClubSeek/blob/main/docker-compose.yml) file.
 
 ## Features
 ### Docker Secrets
-Docker Secrets are declared in the [secrets](https://github.com/radical-teach/major-project-group-4/tree/main/secrets) folder and is used to store Database and API Endpoint Credentials
+Docker Secrets are declared in the [secrets](https://github.com/eshaanm25/ClubSeek/tree/main/secrets) folder and is used to store Database and API Endpoint Credentials
 ### GitHub Actions
-GitHub Actions are declared in the [.github/workflows](https://github.com/radical-teach/major-project-group-4/tree/main/.github/workflows) folder. The `main` branch is protected and GitHub Actions are used to ensure that all Unit Tests and Integration Tests have passed before a PR can be merged into `main`. 
+GitHub Actions are declared in the [.github/workflows](https://github.com/eshaanm25/ClubSeek/tree/main/.github/workflows) folder. The `main` branch is protected and GitHub Actions are used to ensure that all Unit Tests and Integration Tests have passed before a PR can be merged into `main`. 
 
 GitHub Actions also push images to the GitHub Container Registry and AWS Elastic Container Registry when a PR is merged to main. This meant that we always have an up to date container in AWS ECR and our GitHub Repo for clients to pull and use. This could also be used to create a pipeline for automated deployment of application updates.
 
-GitHub Actions work by running Unit Testing and Integration Testing containers that are declared in [dockerTestingFiles](https://github.com/radical-teach/major-project-group-4/tree/main/dockerTestingFiles "dockerTestingFiles") and reading their error codes to determine if tests have failed or passed
+GitHub Actions work by running Unit Testing and Integration Testing containers that are declared in [dockerTestingFiles](https://github.com/eshaanm25/ClubSeek/tree/main/dockerTestingFiles "dockerTestingFiles") and reading their error codes to determine if tests have failed or passed
 
